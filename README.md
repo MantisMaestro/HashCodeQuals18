@@ -3,9 +3,14 @@
 
 ## Running
 
-``` go run \*.go <Params>```
+` go run *.go <Params>`
+
+## Testing
+
+` go test `
 
 ## How it works
+
 1. Read Files
 2. Do stuff
 3. Output Files
