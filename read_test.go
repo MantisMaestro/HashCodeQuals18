@@ -50,7 +50,7 @@ func TestReadFile(t *testing.T) {
 	if result.rides[2].latestFinish != firstRide.latestFinish {
 		t.Fatalf("Read File Error: \n%v \n%v", result.rides[0].latestFinish, firstRide.latestFinish)
 	}
-	
+
 	if err != nil {
 		t.Errorf("Read File Error: %v", err)
 	}
