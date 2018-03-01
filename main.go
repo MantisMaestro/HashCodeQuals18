@@ -38,18 +38,19 @@ type car struct {
 
 func main() {
 	start := time.Now()
+	fmt.Printf("Main started\n")
 
-	_, err := readFile(os.Args[1])
+	input, err := readFile(os.Args[1])
 	if err != nil {
 		panic(err)
 	}
-	input := file{}
 	result := run(input)
 	err = writeFile(os.Args[2], result)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Main has run")
+	fmt.Printf("Score: %v\n", getScore(result, input.perRideBonus))
+	fmt.Printf("Main has run\n")
 
 	fmt.Printf("Execute time: %v\n", time.Since(start))
 }
