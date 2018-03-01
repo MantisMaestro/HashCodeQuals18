@@ -2,8 +2,20 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
-func writeFile(filename string /*data*/) {
-	fmt.Printf("Read File: %v\n", filename)
+// Writes the output file
+func writeFile(filename string /*data*/) error {
+	fmt.Printf("Writing File: %v\n", filename)
+
+	f, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	// fmt.Fprintf(file, outputStr)
+
+	return nil
 }
