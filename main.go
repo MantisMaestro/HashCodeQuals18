@@ -128,8 +128,8 @@ func run(data file) []car {
 			fmt.Printf("\t\tonRide: %v \n", currentCar.onRide)
 			fmt.Printf("\t\tCurrent Ride: %v\n", currentCar.currentRide)
 			fmt.Printf("\t\tPrevious Rides: %v\n", currentCar.previousRides)
-			fmt.Printf("\nRides: %v\n\n", data.rides)
 		}
+		fmt.Printf("\nRides: %v\n\n", data.rides)
 	}
 	return cars
 }
@@ -165,10 +165,12 @@ func getDistance(a, b, x, y int) int {
 }
 
 func updatePosition(car car) car {
+	fmt.Printf("\t\t\tUpdating Postion\n")
 	// Check if heading to finsh, or start of current ride
 	if car.onRide {
 		dR := car.currentR - car.currentRide.finishR
 		dC := car.currentC - car.currentRide.finishC
+		fmt.Printf("\t\t\t\tdR: %v dC: %v\n", dR, dC)
 		if dR != 0 {
 			if dR > 0 {
 				car.currentR--
@@ -185,6 +187,7 @@ func updatePosition(car car) car {
 	} else {
 		dR := car.currentR - car.currentRide.startR
 		dC := car.currentC - car.currentRide.startC
+		fmt.Printf("\t\t\t\tdR: %v dC: %v\n", dR, dC)
 		if dR != 0 {
 			if dR > 0 {
 				car.currentR--

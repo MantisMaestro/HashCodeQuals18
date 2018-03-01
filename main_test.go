@@ -1,18 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
-func TestRun(t *testing.T) {
-	currentFile, err := readFile("input/a_example.in")
-	if err != nil {
-		panic(err)
-	}
-	result := run(currentFile)
-	fmt.Printf("Cars: %v\n", result)
-}
+// func TestRun(t *testing.T) {
+// 	currentFile, err := readFile("input/a_example.in")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	result := run(currentFile)
+// 	fmt.Printf("Cars: %v\n", result)
+// }
 
 func TestScore(t *testing.T) {
 	currentFile, err := readFile("input/a_example.in")
