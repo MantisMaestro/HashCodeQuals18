@@ -7,13 +7,15 @@ import (
 )
 
 type ride struct {
-	startR       int
-	startC       int
-	finishR      int
-	finishC      int
-	earlyStart   int
-	latestFinish int
-	completed    bool
+	startR          int
+	startC          int
+	finishR         int
+	finishC         int
+	earlyStart      int
+	latestFinish    int
+	completed       bool
+	startTime       int
+	completedOnTime bool
 }
 
 type file struct {
@@ -73,13 +75,17 @@ func run(data file) []car {
 				if currentCar.currentC == currentCar.currentRide.startC &&
 					currentCar.currentR == currentCar.currentRide.startR {
 					if t >= currentCar.currentRide.earlyStart {
+						currentCar.previousRides[len(currentCar.previousRides)-1].startTime = t
 						currentCar.onRide = true
 					}
 				}
 			}
 
 			// Check if ride complete
-			if isRideComplete(currentCar) {
+			if isRideComplete(currentCar) && currentCar.onRide {
+				if t <= currentCar.currentRide.latestFinish {
+					currentCar.previousRides[len(currentCar.previousRides)-1].completedOnTime = true
+				}
 				// Find next job
 				nextRideIndex := findRide(currentCar, data.rides)
 				// set job to currentRide and add to previousRides
@@ -138,4 +144,20 @@ func updatePosition(car car) car {
 		}
 	}
 	return car
+}
+
+func getScore(cars []car, bonus int) int {
+	var score = 0
+	for _, currentCar := range cars {
+		for _, currentRide := range currentCar.previousRides {
+			if currentRide.completedOnTime {
+				distance := 1
+				score += distance
+			}
+			if currentRide.startTime == currentRide.earlyStart {
+				score += bonus
+			}
+		}
+	}
+	return score
 }
