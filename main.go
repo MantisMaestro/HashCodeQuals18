@@ -120,9 +120,10 @@ func run(data file) []car {
 				currentCar.onRide = false
 				// Update rides
 				data.rides[nextRideIndex].completed = true
-
-				cars[i] = currentCar
 			}
+
+			cars[i] = currentCar
+
 			fmt.Printf("\tCar %v:\n", i)
 			fmt.Printf("\t\tPosition: r = %v c = %v\n", currentCar.currentR, currentCar.currentC)
 			fmt.Printf("\t\tonRide: %v \n", currentCar.onRide)
