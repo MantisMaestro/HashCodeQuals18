@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 )
@@ -10,11 +11,11 @@ import (
 func writeFile(filename string, cars []car) (string, error) {
 	fmt.Printf("Writing File: %v\n", filename)
 
-	f, err := os.Open(filename)
+	file, err := os.Create(filename)
 	if err != nil {
-		return "", err
+		log.Fatal("Cannot create file", err)
 	}
-	defer f.Close()
+	defer file.Close()
 
 	outputStr := ""
 	for _, currentCar := range cars {
@@ -25,7 +26,7 @@ func writeFile(filename string, cars []car) (string, error) {
 		outputStr += "\n"
 	}
 	fmt.Printf("\n\n\noutput: \n%v\n\n", outputStr)
-	fmt.Fprintf(f, outputStr)
+	fmt.Fprintf(file, outputStr)
 
 	return outputStr, nil
 }
