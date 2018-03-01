@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"time"
-	"math"
 )
 
 type ride struct {
@@ -106,7 +106,7 @@ func findRide(car car, rides []ride, currentTime int) int {
 	lowestRating := 1000000
 	var bestRideIndex int
 
-	for i, currentRide := range rides{
+	for i, currentRide := range rides {
 		if currentRide.completed != true {
 			rating := currentRide.earlyStart - (getDistanace(car.currentR, currentRide.startR, car.currentC, currentRide.startC) + currentTime)
 			rating = int(math.Abs(float64(rating)))
@@ -120,7 +120,7 @@ func findRide(car car, rides []ride, currentTime int) int {
 }
 
 func isRideComplete(car car) bool {
-	if car.currentR == car.currentRide.finishR && car.currentC == car.currentRide.finishC{
+	if car.currentR == car.currentRide.finishR && car.currentC == car.currentRide.finishC {
 		return true
 	} else {
 		return false
