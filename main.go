@@ -8,7 +8,7 @@ import (
 )
 
 type ride struct {
-	rideIndex		int
+	rideIndex       int
 	startR          int
 	startC          int
 	finishR         int
@@ -47,7 +47,7 @@ func main() {
 		panic(err)
 	}
 	result := run(input)
-	err = writeFile(os.Args[2], result)
+	_, err = writeFile(os.Args[2], result)
 	if err != nil {
 		panic(err)
 	}

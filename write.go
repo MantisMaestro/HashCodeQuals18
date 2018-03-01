@@ -6,16 +6,25 @@ import (
 )
 
 // Writes the output file
-func writeFile(filename string, data []car) error {
+func writeFile(filename string, cars []car) (string, error) {
 	fmt.Printf("Writing File: %v\n", filename)
 
 	f, err := os.Open(filename)
 	if err != nil {
-		return err
+		return "", err
 	}
 	defer f.Close()
 
-	// fmt.Fprintf(file, outputStr)
+	outputStr := ""
+	for _, currentCar := range cars {
+		outputStr += string(len(currentCar.previousRides))
+		for _, ride := range currentCar.previousRides {
+			outputStr += " " + string(ride.rideIndex)
+		}
+		outputStr += "\n"
+	}
 
-	return nil
+	fmt.Fprintf(f, outputStr)
+
+	return outputStr, nil
 }
