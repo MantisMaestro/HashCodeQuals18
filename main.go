@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"time"
+	"math"
 )
 
 type ride struct {
@@ -88,7 +89,7 @@ func run(data file) []car {
 					currentCar.previousRides[len(currentCar.previousRides)-1].completedOnTime = true
 				}
 				// Find next job
-				nextRideIndex := findRide(currentCar, data.rides)
+				nextRideIndex := findRide(currentCar, data.rides, t)
 				// set job to currentRide and add to previousRides
 				currentCar.currentRide = data.rides[nextRideIndex]
 				currentCar.previousRides = append(currentCar.previousRides, data.rides[nextRideIndex])
@@ -101,12 +102,33 @@ func run(data file) []car {
 	return cars
 }
 
-func findRide(car car, rides []ride) int {
-	return 0
+func findRide(car car, rides []ride, currentTime int) int {
+	lowestRating := 1000000
+	var bestRideIndex int
+
+	for i, currentRide := range rides{
+		if currentRide.completed != true {
+			rating := currentRide.earlyStart - (getDistanace(car.currentR, currentRide.startR, car.currentC, currentRide.startC) + currentTime)
+			rating = int(math.Abs(float64(rating)))
+			if rating < lowestRating {
+				lowestRating = rating
+				bestRideIndex = i
+			}
+		}
+	}
+	return bestRideIndex
 }
 
 func isRideComplete(car car) bool {
-	return true
+	if car.currentR == car.currentRide.finishR && car.currentC == car.currentRide.finishC{
+		return true
+	} else {
+		return false
+	}
+}
+
+func getDistance(a, b, x, y int) int {
+	return int(math.Abs(float64(a-x))) + int(math.Abs(float64(b-y)))
 }
 
 func updatePosition(car car) car {
