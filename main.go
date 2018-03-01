@@ -5,6 +5,31 @@ import (
 	"time"
 )
 
+type ride struct {
+	startR       int
+	startC       int
+	finishR      int
+	finishC      int
+	earlyStart   int
+	latestFinish int
+}
+
+type file struct {
+	rows         int
+	columns      int
+	noOfCars     int
+	rides        []ride
+	perRideBonus int
+	totalTime    int
+}
+
+type car struct {
+	currentR      int
+	currentC      int
+	currentRide   ride
+	previousRides []ride
+}
+
 func main() {
 	start := time.Now()
 
