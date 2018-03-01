@@ -125,6 +125,7 @@ func run(data file) []car {
 			}
 			fmt.Printf("\tCar %v:\n", i)
 			fmt.Printf("\t\tPosition: r = %v c = %v\n", currentCar.currentR, currentCar.currentC)
+			fmt.Printf("\t\tonRide: %v \n", currentCar.onRide)
 			fmt.Printf("\t\tCurrent Ride: %v\n", currentCar.currentRide)
 			fmt.Printf("\t\tPrevious Rides: %v\n", currentCar.previousRides)
 			fmt.Printf("\nRides: %v\n\n", data.rides)
