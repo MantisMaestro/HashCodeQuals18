@@ -69,20 +69,12 @@ func run(data file) []car {
 
 			// Check if ride complete
 			if isRideComplete(currentCar) {
-				currentCar.onRide = false
-			} else {
-				// check if x is correct
-				// check if c is correct
-			}
-
-			// Check if car NOT on job
-			if !currentCar.onRide {
 				// Find next job
 				nextRideIndex := findRide(currentCar, data.rides)
 				// set job to currentRide and add to previousRides
 				currentCar.currentRide = data.rides[nextRideIndex]
 				currentCar.previousRides = append(currentCar.previousRides, data.rides[nextRideIndex])
-				currentCar.onRide = true
+				currentCar.onRide = false
 				// Update rides
 				data.rides[nextRideIndex].completed = true
 			}
