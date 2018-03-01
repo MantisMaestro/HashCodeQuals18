@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"time"
 )
 
@@ -12,6 +13,7 @@ type ride struct {
 	finishC      int
 	earlyStart   int
 	latestFinish int
+	completed    bool
 }
 
 type file struct {
@@ -29,24 +31,54 @@ type car struct {
 	currentC      int
 	currentRide   ride
 	previousRides []ride
+	onRide        bool
 }
 
 func main() {
 	start := time.Now()
 
-	readFile("Hello World")
-	writeFile("Goodbye World")
+	_, err := readFile(os.Args[1])
+	if err != nil {
+		panic(err)
+	}
+	input := file{}
+	result := run(input)
+	err = writeFile(os.Args[2], result)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Printf("Main has run")
 
 	fmt.Printf("Execute time: %v\n", time.Since(start))
 }
 
-func run() {
+func run(data file) []car {
 	//Do the fancy stuff
 
+	// Init cars
+	var cars []car
+	for i := 0; i < data.noOfCars; i++ {
+		cars = append(cars, car{})
+	}
+
 	// Loop throug time 0 -> totalTime
-	// Loop through cars 0 -> noOfCars
-	// Check if car NOT on job
-	// Find next job
-	// set job to currentRide and add to previousRides
+	for t := 0; t < data.totalTime; t++ {
+		// Loop through cars 0 -> noOfCars
+		for _, currentCar := range cars {
+			// Check if car NOT on job
+			if !currentCar.onRide {
+				// Find next job
+				nextRide := findRide(currentCar, data.rides)
+				// set job to currentRide and add to previousRides
+				currentCar.currentRide = nextRide
+				currentCar.previousRides = append(currentCar.previousRides, nextRide)
+				currentCar.onRide = true
+			}
+		}
+	}
+	return cars
+}
+
+func findRide(car car, rides []ride) ride {
+	return rides[0]
 }

@@ -6,7 +6,7 @@ import (
 )
 
 // Writes the output file
-func writeFile(filename string /*data*/) error {
+func writeFile(filename string, data []car) error {
 	fmt.Printf("Writing File: %v\n", filename)
 
 	f, err := os.Open(filename)
