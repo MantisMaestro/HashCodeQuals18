@@ -15,7 +15,12 @@ func TestRun(t *testing.T) {
 }
 
 func TestScore(t *testing.T) {
-	result := 10 //getScore(cars, bonus)
+	currentFile, err := readFile("input/a_example.in")
+	if err != nil {
+		panic(err)
+	}
+	cars := run(currentFile)
+	result := getScore(cars, currentFile.perRideBonus)
 	expected := 10
 	if result != expected {
 		t.Errorf("Score Error: %v != %v", result, expected)

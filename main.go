@@ -201,7 +201,7 @@ func getScore(cars []car, bonus int) int {
 	for _, currentCar := range cars {
 		for _, currentRide := range currentCar.previousRides {
 			if currentRide.completedOnTime {
-				distance := 1
+				distance := getDistance(currentRide.startR, currentRide.startC, currentRide.finishR, currentRide.finishC)
 				score += distance
 			}
 			if currentRide.startTime == currentRide.earlyStart {
