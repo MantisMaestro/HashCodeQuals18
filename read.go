@@ -6,7 +6,6 @@ import (
 	"os"
 	"strings"
 	"strconv"
-	"go/build"
 )
 
 // Reads input file
@@ -49,6 +48,5 @@ func readFile(filename string) (file, error) {
 		}
 		index++
 	}
-
 	return newFile, nil
 }
