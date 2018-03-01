@@ -71,7 +71,9 @@ func run(data file) []car {
 		fmt.Printf("nextRideIndex: %v\n", nextRideIndex)
 		// set job to currentRide and add to previousRides
 		currentCar.currentRide = data.rides[nextRideIndex]
-		currentCar.previousRides = append(currentCar.previousRides, data.rides[nextRideIndex])
+		nextRide := data.rides[nextRideIndex]
+		nextRide.completed = true
+		currentCar.previousRides = append(currentCar.previousRides, nextRide)
 		currentCar.onRide = false
 		// Update rides
 		data.rides[nextRideIndex].completed = true
@@ -112,7 +114,9 @@ func run(data file) []car {
 				nextRideIndex := findRide(currentCar, data.rides, t)
 				// set job to currentRide and add to previousRides
 				currentCar.currentRide = data.rides[nextRideIndex]
-				currentCar.previousRides = append(currentCar.previousRides, data.rides[nextRideIndex])
+				nextRide := data.rides[nextRideIndex]
+				nextRide.completed = true
+				currentCar.previousRides = append(currentCar.previousRides, nextRide)
 				currentCar.onRide = false
 				// Update rides
 				data.rides[nextRideIndex].completed = true
@@ -123,6 +127,7 @@ func run(data file) []car {
 			fmt.Printf("\t\tPosition: r = %v c = %v\n", currentCar.currentR, currentCar.currentC)
 			fmt.Printf("\t\tCurrent Ride: %v\n", currentCar.currentRide)
 			fmt.Printf("\t\tPrevious Rides: %v\n", currentCar.previousRides)
+			fmt.Printf("\nRides: %v\n\n", data.rides)
 		}
 	}
 	return cars
