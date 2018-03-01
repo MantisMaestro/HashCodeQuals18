@@ -18,6 +18,7 @@ type file struct {
 	rows         int
 	columns      int
 	noOfCars     int
+	noOfRides    int
 	rides        []ride
 	perRideBonus int
 	totalTime    int
@@ -42,4 +43,10 @@ func main() {
 
 func run() {
 	//Do the fancy stuff
+
+	// Loop throug time 0 -> totalTime
+	// Loop through cars 0 -> noOfCars
+	// Check if car NOT on job
+	// Find next job
+	// set job to currentRide and add to previousRides
 }
