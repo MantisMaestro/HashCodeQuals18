@@ -113,14 +113,18 @@ func run(data file) []car {
 				}
 				// Find next job
 				nextRideIndex := findRide(currentCar, data.rides, t)
-				// set job to currentRide and add to previousRides
-				currentCar.currentRide = data.rides[nextRideIndex]
-				nextRide := data.rides[nextRideIndex]
-				nextRide.completed = true
-				currentCar.previousRides = append(currentCar.previousRides, nextRide)
-				currentCar.onRide = false
-				// Update rides
-				data.rides[nextRideIndex].completed = true
+				if nextRideIndex >= 0 {
+					// set job to currentRide and add to previousRides
+					currentCar.currentRide = data.rides[nextRideIndex]
+					nextRide := data.rides[nextRideIndex]
+					nextRide.completed = true
+					currentCar.previousRides = append(currentCar.previousRides, nextRide)
+					currentCar.onRide = false
+					// Update rides
+					data.rides[nextRideIndex].completed = true
+				} else {
+					continue
+				}
 			}
 
 			cars[i] = currentCar
@@ -138,7 +142,7 @@ func run(data file) []car {
 
 func findRide(car car, rides []ride, currentTime int) int {
 	lowestRating := 1000000
-	var bestRideIndex int
+	var bestRideIndex int = -1
 
 	for i, currentRide := range rides {
 		if currentRide.completed != true {
@@ -150,7 +154,6 @@ func findRide(car car, rides []ride, currentTime int) int {
 			}
 		}
 	}
-	fmt.Printf("FindRide: index: %v ride: %v\n", bestRideIndex, rides[bestRideIndex])
 	return bestRideIndex
 }
 
