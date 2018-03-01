@@ -65,10 +65,22 @@ func run(data file) []car {
 		cars = append(cars, car{})
 	}
 
+	// Init rides
+	for _, currentCar := range cars {
+		nextRideIndex := findRide(currentCar, data.rides, 0)
+		// set job to currentRide and add to previousRides
+		currentCar.currentRide = data.rides[nextRideIndex]
+		currentCar.previousRides = append(currentCar.previousRides, data.rides[nextRideIndex])
+		currentCar.onRide = false
+		// Update rides
+		data.rides[nextRideIndex].completed = true
+	}
+
 	// Loop throug time 0 -> totalTime
 	for t := 0; t < data.totalTime; t++ {
+		fmt.Printf("Time: %v\n", t)
 		// Loop through cars 0 -> noOfCars
-		for _, currentCar := range cars {
+		for i, currentCar := range cars {
 			// Update position
 			currentCar = updatePosition(currentCar)
 
@@ -77,8 +89,10 @@ func run(data file) []car {
 				if currentCar.currentC == currentCar.currentRide.startC &&
 					currentCar.currentR == currentCar.currentRide.startR {
 					if t >= currentCar.currentRide.earlyStart {
-						currentCar.previousRides[len(currentCar.previousRides)-1].startTime = t
-						currentCar.onRide = true
+						if len(currentCar.previousRides) > 0 {
+							currentCar.previousRides[len(currentCar.previousRides)-1].startTime = t
+							currentCar.onRide = true
+						}
 					}
 				}
 			}
@@ -86,7 +100,9 @@ func run(data file) []car {
 			// Check if ride complete
 			if isRideComplete(currentCar) && currentCar.onRide {
 				if t <= currentCar.currentRide.latestFinish {
-					currentCar.previousRides[len(currentCar.previousRides)-1].completedOnTime = true
+					if len(currentCar.previousRides) > 0 {
+						currentCar.previousRides[len(currentCar.previousRides)-1].completedOnTime = true
+					}
 				}
 				// Find next job
 				nextRideIndex := findRide(currentCar, data.rides, t)
@@ -97,6 +113,10 @@ func run(data file) []car {
 				// Update rides
 				data.rides[nextRideIndex].completed = true
 			}
+			fmt.Printf("\tCar %v:\n", i)
+			fmt.Printf("\t\tPosition: r = %v c = %v\n", currentCar.currentR, currentCar.currentC)
+			fmt.Printf("\t\tCurrent Ride: %v\n", currentCar.currentRide)
+			fmt.Printf("\t\tPrevious Rides: %v\n", currentCar.previousRides)
 		}
 	}
 	return cars
