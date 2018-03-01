@@ -66,6 +66,17 @@ func run(data file) []car {
 		// Loop through cars 0 -> noOfCars
 		for _, currentCar := range cars {
 			// Update position
+			currentCar = updatePosition(currentCar)
+
+			// Wait for Ride
+			if !currentCar.onRide {
+				if currentCar.currentC == currentCar.currentRide.startC &&
+					currentCar.currentR == currentCar.currentRide.startR {
+					if t >= currentCar.currentRide.earlyStart {
+						currentCar.onRide = true
+					}
+				}
+			}
 
 			// Check if ride complete
 			if isRideComplete(currentCar) {
@@ -89,4 +100,42 @@ func findRide(car car, rides []ride) int {
 
 func isRideComplete(car car) bool {
 	return true
+}
+
+func updatePosition(car car) car {
+	// Check if heading to finsh, or start of current ride
+	if car.onRide {
+		dR := car.currentR - car.currentRide.finishR
+		dC := car.currentC - car.currentRide.finishC
+		if dR != 0 {
+			if dR > 0 {
+				car.currentR--
+			} else {
+				car.currentR++
+			}
+		} else if dC != 0 {
+			if dC > 0 {
+				car.currentC--
+			} else {
+				car.currentC++
+			}
+		}
+	} else {
+		dR := car.currentR - car.currentRide.startR
+		dC := car.currentC - car.currentRide.startC
+		if dR != 0 {
+			if dR > 0 {
+				car.currentR--
+			} else {
+				car.currentR++
+			}
+		} else if dC != 0 {
+			if dC > 0 {
+				car.currentC--
+			} else {
+				car.currentC++
+			}
+		}
+	}
+	return car
 }
