@@ -8,6 +8,7 @@ import (
 )
 
 type ride struct {
+	rideIndex		int
 	startR          int
 	startC          int
 	finishR         int

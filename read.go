@@ -44,6 +44,7 @@ func readFile(filename string) (file, error) {
 			newRide.finishC, _ = strconv.Atoi(row[3])
 			newRide.earlyStart, _ = strconv.Atoi(row[4])
 			newRide.latestFinish, _ = strconv.Atoi(row[5])
+			newRide.rideIndex = index-1
 			newFile.rides[index-1] = newRide
 		}
 		index++
