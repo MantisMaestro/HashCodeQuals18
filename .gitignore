@@ -23,6 +23,10 @@
 .idea/gradle.xml
 .idea/libraries
 
+# Files I don't understand but probably don't need to be pushed:
+.idea/HashCodeQuals18.iml
+.idea/modules.xml
+
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
 
