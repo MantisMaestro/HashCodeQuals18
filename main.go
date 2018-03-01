@@ -90,7 +90,7 @@ func findRide(car car, rides []ride, currentTime int) int {
 
 	for i, currentRide := range rides{
 		if currentRide.completed != true {
-			rating := currentRide.earlyStart - (getDistanace(car.currentR, currentRide.startR, car.currentC, currentRide.startC) + currentTime)
+			rating := currentRide.earlyStart - (getDistance(car.currentR, currentRide.startR, car.currentC, currentRide.startC) + currentTime)
 			rating = int(math.Abs(float64(rating)))
 			if rating < lowestRating {
 				lowestRating = rating
